@@ -87,32 +87,45 @@ table {
 }
 
 .start {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100%;
-    margin: 0;
-    padding: 2rem 0;
-    text-align: center;
-    z-index: 200;
-    color: #fff;
-    font-size: 1.5rem;
-    background-color: black;
-    cursor: pointer;
-    font-family: sans-serif;
+    padding: 1rem;
+    box-shadow: 3px 3px 5px 1px #ccc;
+    font-size: 20px;
     font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.btn {
+    background-color:black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 15px;
+}
+
+.btn:not(:last-child) {
+    margin-right: 15px;
+}
+
+
+
 .score {
-    position: absolute;
+    position: fixed;
     left: 0;
-    top: 0;
+    bottom: 0;
     width: 100%;
     background-color: black;
-    padding: 1rem 0;
+    padding: 1rem;
     text-align: center;
-    z-index: 200;
+    /* z-index: 200; */
     font-size: 1.5rem;
-    color: skyblue;
-    font-weight: 500;
+    /* color: skyblue; */
+    box-shadow: -3px -3px 5px 1px #ccc;
+    /* font-weight: 500; */
+    height: calc(50px - 2rem);
 }
