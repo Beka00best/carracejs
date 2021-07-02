@@ -1,9 +1,18 @@
 "use strict";
 
+const MAX_ENEMY = 7;
+
 const score = document.querySelector('.score'),
     start = document.querySelector('.start'),
     gameArea = document.querySelector('.gameArea'),
     car = document.createElement('div');
+
+// const music = document.createElement('embed');
+// music.src = './audio.mp3';
+// music.classList.add('visually-hidden');
+
+const music = new Audio('audio.mp3');
+
 car.classList.add('car');
 
 const keys = {
@@ -17,7 +26,7 @@ const setting = {
     start: false,
     score: 0,
     speed: 5,
-    traffic: 3
+    traffic: 2.5
 };
 
 function moveRoad() {
@@ -75,7 +84,12 @@ function getQuantityElements(heightElement) {
     return document.documentElement.clientHeight / heightElement + 1;
 }
 
+const getRandomEnemy = (max) => Math.floor((Math.random() * max) + 1);
+
 function startGame(){
+    // document.body.append(music);
+    music.play();
+
     start.classList.add('hide');
 
     for (let i = 0; i < getQuantityElements(100); i++) {
@@ -92,7 +106,11 @@ function startGame(){
         enemy.y = -100 * setting.traffic * (i + 1);
         enemy.style.left = Math.floor(Math.random() * (gameArea.offsetWidth - 50)) + 'px';
         enemy.style.top = enemy.y + 'px';
-        enemy.style.background = 'transparent url(./image/enemy.png) center / cover no-repeat';
+        enemy.style.background = `
+            transparent
+            url(./image/enemy${getRandomEnemy(MAX_ENEMY)}.png) 
+            center / cover 
+            no-repeat`;
         gameArea.appendChild(enemy);
     }
 
@@ -105,13 +123,17 @@ function startGame(){
 
 
 function startRun(event){
-    event.preventDefault();
-    keys[event.key] = true;
+    if (keys.hasOwnProperty(event.key)) {
+        event.preventDefault();
+        keys[event.key] = true;
+    }
 }
 
 function stopRun(event){
-    event.preventDefault();
-    keys[event.key] = false;
+    if (keys.hasOwnProperty(event.key)) {
+        event.preventDefault();
+        keys[event.key] = false;
+    }
 }
 
 
@@ -119,3 +141,8 @@ start.addEventListener('click', startGame);
 document.addEventListener('keydown', startRun);
 document.addEventListener('keyup', stopRun);
 
+
+
+// start.textContent = '';
+// start.innerHTML = '';
+// start.insertAdjacentHTML('afterbegin', '<dev>Привет мир</dev>')
